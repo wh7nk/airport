@@ -1,0 +1,314 @@
+-- phpMyAdmin SQL Dump
+-- version 4.8.0-dev
+-- https://www.phpmyadmin.net/
+--
+-- Anamakine: 192.168.30.23
+-- Ãœretim ZamanÄ±: 08 May 2017, 21:27:16
+-- Sunucu sÃ¼rÃ¼mÃ¼: 8.0.0-dmr
+-- PHP SÃ¼rÃ¼mÃ¼: 7.0.16-3
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- VeritabanÄ±: `AirportSystem`
+--
+
+--------------------------------------------------------
+
+--
+-- Tablo iÃ§in tablo yapÄ±sÄ± `Company`
+--
+
+CREATE TABLE `Company` (
+  `company_id` int(255) NOT NULL,
+  `company_name` varchar(255) COLLATE utf8mb4_turkish_ci NOT NULL,
+  `details` varchar(255) COLLATE utf8mb4_turkish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_turkish_ci;
+
+--
+-- Tablo dÃ¶kÃ¼m verisi `Company`
+--
+
+INSERT INTO `Company` (`company_id`, `company_name`, `details`) VALUES
+(1, 'Turkish Airline', 'NULL'),
+(3, 'Sun Express', 'NULL\r\n'),
+(4, 'Pegasus', 'NULL'),
+(5, 'Atlas Global', 'NULL'),
+(6, 'Anadolu Jet', 'NULL'),
+(7, 'Onur Air', 'NULL'),
+(8, 'Bora Jet', 'NULL');
+
+-- --------------------------------------------------------
+
+--
+-- Tablo iÃ§in tablo yapÄ±sÄ± `CompanyPlane`
+--
+
+CREATE TABLE `CompanyPlane` (
+  `company_id` int(255) NOT NULL,
+  `plane_id` int(255) NOT NULL,
+  `gate_id` int(255) NOT NULL,
+  `time` datetime(6) NOT NULL,
+  `delaytime` datetime(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_turkish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Tablo iÃ§in tablo yapÄ±sÄ± `department`
+--
+
+CREATE TABLE `department` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `detail` text
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Tablo iÃ§in tablo yapÄ±sÄ± `departure`
+--
+
+CREATE TABLE `departure` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `place` varchar(50) NOT NULL,
+  `planTime` datetime NOT NULL,
+  `realTime` datetime NOT NULL,
+  `departureType` int(11) NOT NULL,
+  `detail` text
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Tablo dÃ¶kÃ¼m verisi `departure`
+--
+
+INSERT INTO `departure` (`id`, `place`, `planTime`, `realTime`, `departureType`, `detail`) VALUES
+(1, 'kl', '2017-05-11 00:00:00', '2017-05-12 00:00:00', 12, 'okk'),
+(2, 'lk', '2017-05-19 00:00:00', '2017-05-20 00:00:00', 65, 'hfvbbbbbbbbbb ');
+
+-- --------------------------------------------------------
+
+--
+-- Tablo iÃ§in tablo yapÄ±sÄ± `gate`
+--
+
+CREATE TABLE `gate` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `status` int(10) UNSIGNED NOT NULL,
+  `detail` text
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Tablo iÃ§in tablo yapÄ±sÄ± `gateoperation`
+--
+
+CREATE TABLE `gateoperation` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `hatType` int(10) UNSIGNED NOT NULL,
+  `company_id` int(10) UNSIGNED NOT NULL,
+  `departureId` int(10) UNSIGNED NOT NULL,
+  `gateId` int(10) UNSIGNED NOT NULL,
+  `trunkId` int(10) UNSIGNED NOT NULL,
+  `detail` text
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Tablo iÃ§in tablo yapÄ±sÄ± `personnel`
+--
+
+CREATE TABLE `personnel` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `surname` varchar(50) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `address` text NOT NULL,
+  `mail` varchar(50) NOT NULL,
+  `phoneNo` int(20) NOT NULL,
+  `departmentId` int(11) NOT NULL,
+  `detail` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Tablo iÃ§in tablo yapÄ±sÄ± `Plane`
+--
+
+CREATE TABLE `Plane` (
+  `plane_id` int(255) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_turkish_ci NOT NULL,
+  `time` datetime(6) NOT NULL,
+  `delaytime` datetime(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_turkish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Tablo iÃ§in tablo yapÄ±sÄ± `trunk`
+--
+
+CREATE TABLE `trunk` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `status` int(10) UNSIGNED NOT NULL,
+  `detail` text
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- DÃ¶kÃ¼mÃ¼ yapÄ±lmÄ±ÅŸ tablolar iÃ§in indeksler
+--
+
+--
+-- Tablo iÃ§in indeksler `airline`
+--
+ALTER TABLE `airline`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
+
+--
+-- Tablo iÃ§in indeksler `Company`
+--
+ALTER TABLE `Company`
+  ADD PRIMARY KEY (`company_id`);
+
+--
+-- Tablo iÃ§in indeksler `CompanyPlane`
+--
+ALTER TABLE `CompanyPlane`
+  ADD PRIMARY KEY (`company_id`,`plane_id`);
+
+--
+-- Tablo iÃ§in indeksler `department`
+--
+ALTER TABLE `department`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Tablo iÃ§in indeksler `departure`
+--
+ALTER TABLE `departure`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Tablo iÃ§in indeksler `gate`
+--
+ALTER TABLE `gate`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Tablo iÃ§in indeksler `gateoperation`
+--
+ALTER TABLE `gateoperation`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `gateId` (`gateId`),
+  ADD KEY `trunkId` (`trunkId`),
+  ADD KEY `departureId` (`departureId`),
+  ADD KEY `company_id` (`company_id`) USING BTREE;
+
+--
+-- Tablo iÃ§in indeksler `personnel`
+--
+ALTER TABLE `personnel`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `departmentId` (`departmentId`);
+
+--
+-- Tablo iÃ§in indeksler `Plane`
+--
+ALTER TABLE `Plane`
+  ADD PRIMARY KEY (`plane_id`);
+
+--
+-- Tablo iÃ§in indeksler `trunk`
+--
+ALTER TABLE `trunk`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- DÃ¶kÃ¼mÃ¼ yapÄ±lmÄ±ÅŸ tablolar iÃ§in AUTO_INCREMENT deÄŸeri
+--
+
+--
+-- Tablo iÃ§in AUTO_INCREMENT deÄŸeri `airline`
+--
+ALTER TABLE `airline`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- Tablo iÃ§in AUTO_INCREMENT deÄŸeri `Company`
+--
+ALTER TABLE `Company`
+  MODIFY `company_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
+-- Tablo iÃ§in AUTO_INCREMENT deÄŸeri `department`
+--
+ALTER TABLE `department`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- Tablo iÃ§in AUTO_INCREMENT deÄŸeri `departure`
+--
+ALTER TABLE `departure`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- Tablo iÃ§in AUTO_INCREMENT deÄŸeri `gate`
+--
+ALTER TABLE `gate`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- Tablo iÃ§in AUTO_INCREMENT deÄŸeri `gateoperation`
+--
+ALTER TABLE `gateoperation`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- Tablo iÃ§in AUTO_INCREMENT deÄŸeri `personnel`
+--
+ALTER TABLE `personnel`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- Tablo iÃ§in AUTO_INCREMENT deÄŸeri `Plane`
+--
+ALTER TABLE `Plane`
+  MODIFY `plane_id` int(255) NOT NULL AUTO_INCREMENT;
+--
+-- Tablo iÃ§in AUTO_INCREMENT deÄŸeri `trunk`
+--
+ALTER TABLE `trunk`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- DÃ¶kÃ¼mÃ¼ yapÄ±lmÄ±ÅŸ tablolar iÃ§in kÄ±sÄ±tlamalar
+--
+
+--
+-- Tablo kÄ±sÄ±tlamalarÄ± `gateoperation`
+--
+ALTER TABLE `gateoperation`
+  ADD CONSTRAINT `gateoperation_ibfk_1` FOREIGN KEY (`gateId`) REFERENCES `gate` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `gateoperation_ibfk_2` FOREIGN KEY (`departureId`) REFERENCES `departure` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `gateoperation_ibfk_3` FOREIGN KEY (`trunkId`) REFERENCES `trunk` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `gateoperation_ibfk_4` FOREIGN KEY (`company_id`) REFERENCES `airline` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Tablo kÄ±sÄ±tlamalarÄ± `personnel`
+--
+ALTER TABLE `personnel`
+  ADD CONSTRAINT `personnel_ibfk_1` FOREIGN KEY (`departmentId`) REFERENCES `department` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

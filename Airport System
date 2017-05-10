@@ -1,0 +1,247 @@
+-- phpMyAdmin SQL Dump
+-- version 4.6.4
+-- https://www.phpmyadmin.net/
+--
+-- Anamakine: 127.0.0.1
+-- Ãœretim ZamanÄ±: 05 May 2017, 21:38:05
+-- Sunucu sÃ¼rÃ¼mÃ¼: 5.7.14
+-- PHP SÃ¼rÃ¼mÃ¼: 5.6.25
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- VeritabanÄ±: `airport`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Tablo iÃ§in tablo yapÄ±sÄ± `airline`
+--
+
+CREATE TABLE `airline` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `detail` text
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Tablo dÃ¶kÃ¼m verisi `airline`
+--
+
+INSERT INTO `airline` (`id`, `name`, `detail`) VALUES
+(1, 'Turkish Airline', ''),
+(2, 'Pegasus Airline', NULL),
+(3, 'Onur Air', NULL),
+(4, 'Sun Express', NULL),
+(5, 'Atlas Global', NULL),
+(6, 'Anadolu Jet', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Tablo iÃ§in tablo yapÄ±sÄ± `department`
+--
+
+CREATE TABLE `department` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `detail` text
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Tablo iÃ§in tablo yapÄ±sÄ± `departure`
+--
+
+CREATE TABLE `departure` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `place` varchar(50) NOT NULL,
+  `planTime` datetime NOT NULL,
+  `realTime` datetime NOT NULL,
+  `departureType` int(11) NOT NULL,
+  `detail` text
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Tablo iÃ§in tablo yapÄ±sÄ± `gate`
+--
+
+CREATE TABLE `gate` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `status` int(10) UNSIGNED NOT NULL,
+  `detail` text
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Tablo iÃ§in tablo yapÄ±sÄ± `gateoperation`
+--
+
+CREATE TABLE `gateoperation` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `hatType` int(10) UNSIGNED NOT NULL,
+  `airlineId` int(10) UNSIGNED NOT NULL,
+  `departureId` int(10) UNSIGNED NOT NULL,
+  `gateId` int(10) UNSIGNED NOT NULL,
+  `trunkId` int(10) UNSIGNED NOT NULL,
+  `detail` text
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Tablo iÃ§in tablo yapÄ±sÄ± `personnel`
+--
+
+CREATE TABLE `personnel` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `surname` varchar(50) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `address` text NOT NULL,
+  `mail` varchar(50) NOT NULL,
+  `phoneNo` int(20) NOT NULL,
+  `departmentId` int(11) NOT NULL,
+  `detail` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Tablo iÃ§in tablo yapÄ±sÄ± `trunk`
+--
+
+CREATE TABLE `trunk` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `status` int(10) UNSIGNED NOT NULL,
+  `detail` text
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- DÃ¶kÃ¼mÃ¼ yapÄ±lmÄ±ÅŸ tablolar iÃ§in indeksler
+--
+
+--
+-- Tablo iÃ§in indeksler `airline`
+--
+ALTER TABLE `airline`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
+
+--
+-- Tablo iÃ§in indeksler `department`
+--
+ALTER TABLE `department`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Tablo iÃ§in indeksler `departure`
+--
+ALTER TABLE `departure`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Tablo iÃ§in indeksler `gate`
+--
+ALTER TABLE `gate`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Tablo iÃ§in indeksler `gateoperation`
+--
+ALTER TABLE `gateoperation`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `gateId` (`gateId`),
+  ADD KEY `trunkId` (`trunkId`),
+  ADD KEY `departureId` (`departureId`),
+  ADD KEY `airlineId` (`airlineId`);
+
+--
+-- Tablo iÃ§in indeksler `personnel`
+--
+ALTER TABLE `personnel`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `departmentId` (`departmentId`);
+
+--
+-- Tablo iÃ§in indeksler `trunk`
+--
+ALTER TABLE `trunk`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- DÃ¶kÃ¼mÃ¼ yapÄ±lmÄ±ÅŸ tablolar iÃ§in AUTO_INCREMENT deÄŸeri
+--
+
+--
+-- Tablo iÃ§in AUTO_INCREMENT deÄŸeri `airline`
+--
+ALTER TABLE `airline`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- Tablo iÃ§in AUTO_INCREMENT deÄŸeri `department`
+--
+ALTER TABLE `department`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- Tablo iÃ§in AUTO_INCREMENT deÄŸeri `departure`
+--
+ALTER TABLE `departure`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- Tablo iÃ§in AUTO_INCREMENT deÄŸeri `gate`
+--
+ALTER TABLE `gate`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- Tablo iÃ§in AUTO_INCREMENT deÄŸeri `gateoperation`
+--
+ALTER TABLE `gateoperation`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- Tablo iÃ§in AUTO_INCREMENT deÄŸeri `personnel`
+--
+ALTER TABLE `personnel`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- Tablo iÃ§in AUTO_INCREMENT deÄŸeri `trunk`
+--
+ALTER TABLE `trunk`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- DÃ¶kÃ¼mÃ¼ yapÄ±lmÄ±ÅŸ tablolar iÃ§in kÄ±sÄ±tlamalar
+--
+
+--
+-- Tablo kÄ±sÄ±tlamalarÄ± `gateoperation`
+--
+ALTER TABLE `gateoperation`
+  ADD CONSTRAINT `gateoperation_ibfk_1` FOREIGN KEY (`gateId`) REFERENCES `gate` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `gateoperation_ibfk_2` FOREIGN KEY (`departureId`) REFERENCES `departure` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `gateoperation_ibfk_3` FOREIGN KEY (`trunkId`) REFERENCES `trunk` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `gateoperation_ibfk_4` FOREIGN KEY (`airlineId`) REFERENCES `airline` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Tablo kÄ±sÄ±tlamalarÄ± `personnel`
+--
+ALTER TABLE `personnel`
+  ADD CONSTRAINT `personnel_ibfk_1` FOREIGN KEY (`departmentId`) REFERENCES `department` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
