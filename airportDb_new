@@ -1,0 +1,236 @@
+-- phpMyAdmin SQL Dump
+-- version 4.5.1
+-- http://www.phpmyadmin.net
+--
+-- Anamakine: 127.0.0.1
+-- Ãœretim ZamanÄ±: 20 May 2017, 12:44:43
+-- Sunucu sÃ¼rÃ¼mÃ¼: 10.1.13-MariaDB
+-- PHP SÃ¼rÃ¼mÃ¼: 5.6.20
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- VeritabanÄ±: `airportdb`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Tablo iÃ§in tablo yapÄ±sÄ± `admins`
+--
+
+CREATE TABLE `admins` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `last_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Tablo dÃ¶kÃ¼m verisi `admins`
+--
+
+INSERT INTO `admins` (`id`, `name`, `last_name`, `email`, `password`, `created_at`) VALUES
+(2, 'aslihan', 'gurkan', 'asli@gmail.com', '123', '2017-05-18 16:35:13');
+
+-- --------------------------------------------------------
+
+--
+-- Tablo iÃ§in tablo yapÄ±sÄ± `companies`
+--
+
+CREATE TABLE `companies` (
+  `id` int(11) NOT NULL,
+  `name` date NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Tablo iÃ§in tablo yapÄ±sÄ± `companygatemapping`
+--
+
+CREATE TABLE `companygatemapping` (
+  `id` int(11) NOT NULL,
+  `company_id` int(11) NOT NULL,
+  `luggage_id` int(11) NOT NULL,
+  `gate_id` int(11) NOT NULL,
+  `take_off` datetime NOT NULL,
+  `landing` datetime NOT NULL,
+  `delay_time` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Tablo dÃ¶kÃ¼m verisi `companygatemapping`
+--
+
+INSERT INTO `companygatemapping` (`id`, `company_id`, `luggage_id`, `gate_id`, `take_off`, `landing`, `delay_time`, `created_at`) VALUES
+(1, 1, 1, 1, '2017-05-19 16:22:36', '2017-05-19 11:11:37', 20, '2017-05-19 16:53:43');
+
+-- --------------------------------------------------------
+
+--
+-- Tablo iÃ§in tablo yapÄ±sÄ± `gates`
+--
+
+CREATE TABLE `gates` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `is_active` tinyint(4) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Tablo dÃ¶kÃ¼m verisi `gates`
+--
+
+INSERT INTO `gates` (`id`, `name`, `is_active`, `created_at`) VALUES
+(1, 'Gate 1', 1, '2017-05-19 11:32:11'),
+(2, 'Gate 2', 0, '2017-05-19 11:32:11'),
+(3, 'Gate 3', 0, '2017-05-19 14:31:13'),
+(4, 'Gate 4', 0, '2017-05-19 14:31:13'),
+(5, 'Gate 5', 1, '2017-05-19 14:31:34'),
+(6, 'Gate 6', 0, '2017-05-19 14:31:34'),
+(9, 'Gate1', 1, '2017-05-19 15:50:29'),
+(10, 'Gate 502', 0, '2017-05-19 15:51:14'),
+(13, 'Gate 25', 0, '2017-05-19 17:21:59'),
+(14, 'Gate .', 0, '2017-05-20 07:42:18');
+
+-- --------------------------------------------------------
+
+--
+-- Tablo iÃ§in tablo yapÄ±sÄ± `luggage`
+--
+
+CREATE TABLE `luggage` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
+  `is_active` tinyint(4) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Tablo dÃ¶kÃ¼m verisi `luggage`
+--
+
+INSERT INTO `luggage` (`id`, `name`, `is_active`, `created_at`) VALUES
+(1, 'luggage1', 0, '2017-05-19 14:20:03'),
+(2, 'luggage2', 1, '2017-05-19 14:20:03'),
+(3, 'luggage3', 0, '2017-05-19 14:20:10'),
+(4, 'luggage4', 0, '2017-05-19 14:20:10'),
+(5, 'luggage6', 0, '2017-05-20 10:35:23'),
+(6, 'luggage5', 0, '2017-05-20 10:35:44');
+
+-- --------------------------------------------------------
+
+--
+-- Tablo iÃ§in tablo yapÄ±sÄ± `staff`
+--
+
+CREATE TABLE `staff` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
+  `last_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
+  `email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `admin_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Tablo dÃ¶kÃ¼m verisi `staff`
+--
+
+INSERT INTO `staff` (`id`, `name`, `last_name`, `email`, `password`, `created_at`, `admin_id`) VALUES
+(1, 'Aslihan', 'GURKAN', 'aslih@gmail.com', 'b52d8832efefa2c5684a2b1536d2d60fea5e33cb', '2017-05-10 22:32:10', 0);
+
+--
+-- DÃ¶kÃ¼mÃ¼ yapÄ±lmÄ±ÅŸ tablolar iÃ§in indeksler
+--
+
+--
+-- Tablo iÃ§in indeksler `admins`
+--
+ALTER TABLE `admins`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
+-- Tablo iÃ§in indeksler `companies`
+--
+ALTER TABLE `companies`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Tablo iÃ§in indeksler `companygatemapping`
+--
+ALTER TABLE `companygatemapping`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Tablo iÃ§in indeksler `gates`
+--
+ALTER TABLE `gates`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Tablo iÃ§in indeksler `luggage`
+--
+ALTER TABLE `luggage`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Tablo iÃ§in indeksler `staff`
+--
+ALTER TABLE `staff`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
+-- DÃ¶kÃ¼mÃ¼ yapÄ±lmÄ±ÅŸ tablolar iÃ§in AUTO_INCREMENT deÄŸeri
+--
+
+--
+-- Tablo iÃ§in AUTO_INCREMENT deÄŸeri `admins`
+--
+ALTER TABLE `admins`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- Tablo iÃ§in AUTO_INCREMENT deÄŸeri `companies`
+--
+ALTER TABLE `companies`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- Tablo iÃ§in AUTO_INCREMENT deÄŸeri `companygatemapping`
+--
+ALTER TABLE `companygatemapping`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- Tablo iÃ§in AUTO_INCREMENT deÄŸeri `gates`
+--
+ALTER TABLE `gates`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+--
+-- Tablo iÃ§in AUTO_INCREMENT deÄŸeri `luggage`
+--
+ALTER TABLE `luggage`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- Tablo iÃ§in AUTO_INCREMENT deÄŸeri `staff`
+--
+ALTER TABLE `staff`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
